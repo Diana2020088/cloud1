@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 // Get all books
 app.get('/books', booksController.getController);
 // Get all books with authors
-app . get ( "/books/populated" , booksController . populatedController );
+app . get ( "/books/populated" , booksController.populatedController );
 // Add a book
 app.post('/books', booksController.postController);
 // A book
@@ -26,7 +26,7 @@ app.get('/books/:id', booksController.getById);
 // Get all authors
 app.get('/authors', authorController.getController);
 // Get all authors with books
-app . get ( "/authors/populated" , authorController . populatedController );
+app . get ( "/authors/populated" , authorController.populatedController );
 // Add a author
 app.post('/authors', authorController.postController);
 // An Author
