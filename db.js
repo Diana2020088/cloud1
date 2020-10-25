@@ -1,3 +1,5 @@
+const QueryString = require('qs');
+
 const uri = process.env.MONGO_URI;
 const MongoClient = require('mongodb').MongoClient;
 const DB_NAME = "book-store";
@@ -18,12 +20,13 @@ module.exports = () => {
             });
         });
     };
-    const get = (collectionName) => {
+    const get = (collectionName, query = {}) => {
         return new Promise((resolve, reject) => {
             MongoClient.connect(uri, MONGO_OPTIONS, (err, client) => {
                 const db = client.db(DB_NAME);
                 const collection = db.collection(collectionName);
-                collection.find({}).toArray((err, docs) => {
+
+                collection.find(query).toArray((err, docs) => {
                     resolve(docs);
                     client.close();
                 });
@@ -37,6 +40,7 @@ module.exports = () => {
                 const collection = db.collection(collectionName);
                 collection.insertOne(item, (err, result) => {
                     resolve(result);
+                    client.close();
                 });
             });
         });
@@ -63,5 +67,6 @@ module.exports = () => {
         count,
         get,
         add,
+        aggregate
     };
 };
